@@ -9,13 +9,15 @@ class LocalizationService extends ChangeNotifier {
   // All the translated text for the app
   final Map<String, Map<String, String>> _translations = {
     'en': {
-      // ... (all existing 'en' translations) ...
+      // Home Screen
       'welcome_title': 'Welcome, Raj Kumar',
       'home_active_plots': 'Active Plots',
       'home_crop_advisory': 'Crop Advisory',
       'home_pest_detection': 'Pest Detection',
       'home_market_prices': 'Market Insights',
       'home_community': 'Community',
+
+      // Schemes Screen
       'schemes_title': 'Government Schemes',
       'schemes_subtitle': 'Access government benefits and subsidies for farmers',
       'schemes_pm_kisan_title': 'PM-KISAN',
@@ -30,6 +32,8 @@ class LocalizationService extends ChangeNotifier {
       'schemes_amount_upto': 'Up to ₹2 Lakh',
       'schemes_deadline': 'Deadline',
       'schemes_helpline': 'Helpline',
+
+      // Updates Screen
       'updates_title': "Today's Updates",
       'updates_tab_all': 'All',
       'updates_tab_alerts': 'Alerts',
@@ -49,6 +53,8 @@ class LocalizationService extends ChangeNotifier {
       'priority_high': 'High',
       'priority_medium': 'Medium',
       'priority_low': 'Low',
+
+      // Diary Screen
       'diary_title': 'Crop Diary',
       'diary_log_activity': "Log Today's Activity",
       'diary_voice_input': 'Voice Input',
@@ -67,6 +73,8 @@ class LocalizationService extends ChangeNotifier {
       'diary_activity_applied_npk_desc':
       'Applied 50kg NPK (12:32:16) per acre as recommended.',
       'diary_activity_applied_npk_weather': 'Cloudy, 26°C',
+
+      // Profile Screen
       'profile_title': 'Profile',
       'profile_farm_info': 'Farm Information',
       'profile_farm_size': 'Farm Size',
@@ -88,6 +96,8 @@ class LocalizationService extends ChangeNotifier {
       'profile_primary_contact': 'Primary contact number',
       'profile_emergency_contacts': 'Emergency Contacts',
       'profile_sign_out': 'Sign Out',
+
+      // Crop Advisory Flow
       'crop_advisory_title': 'Crop Advisory',
       'crop_advisory_subtitle':
       'Select your crop to get personalized farming guidance',
@@ -110,10 +120,20 @@ class LocalizationService extends ChangeNotifier {
       'personalized_plan_step1_title': 'Step 1: Land Preparation',
       'personalized_plan_step2_title': 'Step 2: Sowing & Planting',
       'personalized_plan_step3_title': 'Step 3: Fertilization Schedule',
+      'crop_advisor_form_hint_area': 'e.g., 5.0',
+      'crop_advisor_form_hint_soil': 'e.g., Loamy, Sandy',
+      'crop_advisor_form_hint_irrigation': 'Select an irrigation method',
+      'irrigation_drip': 'Drip Irrigation',
+      'irrigation_sprinkler': 'Sprinkler',
+      'irrigation_canal': 'Canal',
+
+      // Market Insights
       'market_prices_title': 'Market Insights',
       'market_prices_live': 'Live',
       'market_prices_per_quintal': 'per quintal',
       'market_prices_vs_yesterday': 'vs yesterday',
+
+      // Community Forum
       'community_title': 'Community Forum',
       'community_share_experience': 'Share Your Experience',
       'community_share_experience_subtitle':
@@ -122,6 +142,14 @@ class LocalizationService extends ChangeNotifier {
       'community_tag_crops': 'Crops',
       'community_tag_tips': 'Tips',
       'community_tag_govt': 'Govt. Schemes',
+      'community_post_1_text':
+      'My wheat crop is showing yellow leaves. What should I do?',
+      'community_post_2_text':
+      'I use neem oil mixed with soap water for pest control. Very effective and organic!',
+      'community_post_3_text':
+      'PM-KISAN installment received today. ₹2000 credited to account. Check your status!',
+
+      // Pest Detection
       'pest_detection_title': 'Pest Detection',
       'pest_detection_subtitle':
       'Scan your plants to identify diseases and get treatment advice',
@@ -138,29 +166,50 @@ class LocalizationService extends ChangeNotifier {
       'Keep background simple and uncluttered',
       'pest_detection_capture_button': 'Capture Photo',
       'pest_detection_upload_button': 'Upload Image',
-      'community_post_1_text':
-      'My wheat crop is showing yellow leaves. What should I do?',
-      'community_post_2_text':
-      'I use neem oil mixed with soap water for pest control. Very effective and organic!',
-      'community_post_3_text':
-      'PM-KISAN installment received today. ₹2000 credited to account. Check your status!',
 
-      // ** NEW ** Crop Advisor Form additions
-      'crop_advisor_form_hint_area': 'e.g., 5.0',
-      'crop_advisor_form_hint_soil': 'e.g., Loamy, Sandy',
-      'crop_advisor_form_hint_irrigation': 'Select an irrigation method',
-      'irrigation_drip': 'Drip Irrigation',
-      'irrigation_sprinkler': 'Sprinkler',
-      'irrigation_canal': 'Canal',
+      // New translations for crop advisory
+      'validation_land_area_required': 'Please enter land area',
+      'validation_land_area_number': 'Please enter a valid number',
+      'validation_land_area_positive': 'Land area must be greater than 0',
+      'validation_soil_type_required': 'Please enter soil type',
+      'validation_soil_type_valid': 'Please enter a valid soil type',
+      'validation_irrigation_required': 'Please select an irrigation method',
+      'recommendation_success': 'Recommendation generated successfully!',
+      'reset_form_tooltip': 'Reset Form',
+      'reset_form_button': 'Reset Form',
+      'not_selected': 'Not selected',
+      'acres_unit': 'acres',
+      'form_summary': 'Form Summary:',
+      'Step': 'Step',
+
+      // Crop recommendation texts
+      'recommendation_based_on': 'Based on your input of',
+      'recommendation_land_area': 'acres with',
+      'recommendation_soil': 'soil and',
+      'recommendation_irrigation': 'irrigation, the recommended crop is',
+      'recommendation_crop_loamy': 'Wheat',
+      'recommendation_crop_sandy': 'Groundnut',
+      'recommendation_crop_clay': 'Rice',
+      'recommendation_crop_default': 'Maize',
+
+      // Plan step tasks
+      'plan_task_plow': 'Plow the field 2-3 times to get a fine tilth.',
+      'plan_task_manure': 'Apply 10-15 tons of farmyard manure per acre.',
+      'plan_task_seeds': 'Use certified seeds for best results.',
+      'plan_task_spacing': 'Maintain a row-to-row spacing of 30 cm.',
+      'plan_task_npk1': 'Apply first dose of NPK fertilizer after 25 days.',
+      'plan_task_npk2': 'Second dose should be applied at the flowering stage.',
     },
     'hi': {
-      // ... (all existing 'hi' translations) ...
+      // Home Screen
       'welcome_title': 'स्वागत है, राज कुमार',
       'home_active_plots': 'सक्रिय प्लॉट',
       'home_crop_advisory': 'फसल सलाहकार',
       'home_pest_detection': 'कीट पहचान',
       'home_market_prices': 'बाजार अंतर्दृष्टि',
       'home_community': 'समुदाय',
+
+      // Schemes Screen
       'schemes_title': 'सरकारी योजनाएं',
       'schemes_subtitle': 'किसानों के लिए सरकारी लाभ और सब्सिडी प्राप्त करें',
       'schemes_pm_kisan_title': 'पीएम-किसान',
@@ -174,6 +223,8 @@ class LocalizationService extends ChangeNotifier {
       'schemes_amount_upto': '₹2 लाख तक',
       'schemes_deadline': 'अंतिम तिथि',
       'schemes_helpline': 'हेल्पलाइन',
+
+      // Updates Screen
       'updates_title': 'आज की जानकारी',
       'updates_tab_all': 'सभी',
       'updates_tab_alerts': 'चेतावनी',
@@ -193,6 +244,8 @@ class LocalizationService extends ChangeNotifier {
       'priority_high': 'उच्च',
       'priority_medium': 'मध्यम',
       'priority_low': 'कम',
+
+      // Diary Screen
       'diary_title': 'फसल डायरी',
       'diary_log_activity': 'आज की गतिविधि लॉग करें',
       'diary_voice_input': 'आवाज इनपुट',
@@ -211,6 +264,8 @@ class LocalizationService extends ChangeNotifier {
       'diary_activity_applied_npk_desc':
       'सिफारिश के अनुसार प्रति एकड़ 50 किलो एनपीके (12:32:16) डाला।',
       'diary_activity_applied_npk_weather': 'बादल छाए रहेंगे, 26°C',
+
+      // Profile Screen
       'profile_title': 'प्रोफ़ाइल',
       'profile_farm_info': 'खेत की जानकारी',
       'profile_farm_size': 'खेत का आकार',
@@ -232,6 +287,8 @@ class LocalizationService extends ChangeNotifier {
       'profile_primary_contact': 'प्राथमिक संपर्क नंबर',
       'profile_emergency_contacts': 'आपातकालीन संपर्क',
       'profile_sign_out': 'साइन आउट',
+
+      // Crop Advisory Flow
       'crop_advisory_title': 'फसल सलाहकार',
       'crop_advisory_subtitle':
       'व्यक्तिगत खेती मार्गदर्शन के लिए अपनी फसल चुनें',
@@ -254,10 +311,20 @@ class LocalizationService extends ChangeNotifier {
       'personalized_plan_step1_title': 'चरण 1: भूमि की तैयारी',
       'personalized_plan_step2_title': 'चरण 2: बुवाई और रोपण',
       'personalized_plan_step3_title': 'चरण 3: उर्वरीकरण अनुसूची',
+      'crop_advisor_form_hint_area': 'उदा., 5.0',
+      'crop_advisor_form_hint_soil': 'उदा., दोमट, रेतीली',
+      'crop_advisor_form_hint_irrigation': 'सिंचाई विधि चुनें',
+      'irrigation_drip': 'ड्रिप सिंचाई',
+      'irrigation_sprinkler': 'स्प्रिंकलर',
+      'irrigation_canal': 'नहर',
+
+      // Market Insights
       'market_prices_title': 'बाजार अंतर्दृष्टि',
       'market_prices_live': 'लाइव',
       'market_prices_per_quintal': 'प्रति क्विंटल',
       'market_prices_vs_yesterday': 'कल की तुलना में',
+
+      // Community Forum
       'community_title': 'किसान समुदाय',
       'community_share_experience': 'अपना अनुभव साझा करें',
       'community_share_experience_subtitle':
@@ -266,6 +333,14 @@ class LocalizationService extends ChangeNotifier {
       'community_tag_crops': 'फसलें',
       'community_tag_tips': 'सुझाव',
       'community_tag_govt': 'सरकारी योजनाएं',
+      'community_post_1_text':
+      'मेरी गेहूं की फसल में पीली पत्तियां हो रही हैं। मुझे क्या करना चाहिए?',
+      'community_post_2_text':
+      'मैं कीट नियंत्रण के लिए नीम के तेल को साबुन के पानी में मिलाकर इस्तेमाल करता हूं। बहुत प्रभावी और जैविक!',
+      'community_post_3_text':
+      'पीएम-किसान की किस्त आज मिली। खाते में ₹2000 जमा हुए। अपनी स्थिति जांचें!',
+
+      // Pest Detection
       'pest_detection_title': 'कीट पहचान',
       'pest_detection_subtitle':
       'रोगों की पहचान और उपचार सलाह के लिए अपने पौधों को स्कैन करें',
@@ -282,29 +357,50 @@ class LocalizationService extends ChangeNotifier {
       'पृष्ठभूमि को सरल और अव्यवस्थित रखें',
       'pest_detection_capture_button': 'फोटो लें',
       'pest_detection_upload_button': 'छवि अपलोड करें',
-      'community_post_1_text':
-      'मेरी गेहूं की फसल में पीली पत्तियां हो रही हैं। मुझे क्या करना चाहिए?',
-      'community_post_2_text':
-      'मैं कीट नियंत्रण के लिए नीम के तेल को साबुन के पानी में मिलाकर इस्तेमाल करता हूं। बहुत प्रभावी और जैविक!',
-      'community_post_3_text':
-      'पीएम-किसान की किस्त आज मिली। खाते में ₹2000 जमा हुए। अपनी स्थिति जांचें!',
 
-      // ** NEW ** Crop Advisor Form additions
-      'crop_advisor_form_hint_area': 'उदा., 5.0',
-      'crop_advisor_form_hint_soil': 'उदा., दोमट, रेतीली',
-      'crop_advisor_form_hint_irrigation': 'सिंचाई विधि चुनें',
-      'irrigation_drip': 'ड्रिप सिंचाई',
-      'irrigation_sprinkler': 'स्प्रिंकलर',
-      'irrigation_canal': 'नहर',
+      // New translations for crop advisory
+      'validation_land_area_required': 'कृपया भूमि क्षेत्र दर्ज करें',
+      'validation_land_area_number': 'कृपया एक वैध संख्या दर्ज करें',
+      'validation_land_area_positive': 'भूमि क्षेत्र 0 से अधिक होना चाहिए',
+      'validation_soil_type_required': 'कृपया मिट्टी का प्रकार दर्ज करें',
+      'validation_soil_type_valid': 'कृपया एक वैध मिट्टी प्रकार दर्ज करें',
+      'validation_irrigation_required': 'कृपया सिंचाई विधि चुनें',
+      'recommendation_success': 'सिफारिश सफलतापूर्वक उत्पन्न हुई!',
+      'reset_form_tooltip': 'फॉर्म रीसेट करें',
+      'reset_form_button': 'फॉर्म रीसेट करें',
+      'not_selected': 'चयनित नहीं',
+      'acres_unit': 'एकड़',
+      'form_summary': 'फॉर्म सारांश:',
+      'Step': 'चरण',
+
+      // Crop recommendation texts
+      'recommendation_based_on': 'आपके इनपुट के आधार पर',
+      'recommendation_land_area': 'एकड़ के साथ',
+      'recommendation_soil': 'मिट्टी और',
+      'recommendation_irrigation': 'सिंचाई, अनुशंसित फसल है',
+      'recommendation_crop_loamy': 'गेहूं',
+      'recommendation_crop_sandy': 'मूंगफली',
+      'recommendation_crop_clay': 'चावल',
+      'recommendation_crop_default': 'मक्का',
+
+      // Plan step tasks
+      'plan_task_plow': 'खेत की 2-3 बार जुताई करें ताकि मिट्टी भुरभुरी हो जाए।',
+      'plan_task_manure': 'प्रति एकड़ 10-15 टन गोबर की खाद डालें।',
+      'plan_task_seeds': 'सर्वोत्तम परिणामों के लिए प्रमाणित बीजों का उपयोग करें।',
+      'plan_task_spacing': 'पंक्ति से पंक्ति की दूरी 30 सेमी बनाए रखें।',
+      'plan_task_npk1': '25 दिनों के बाद एनपीके उर्वरक की पहली खुराक डालें।',
+      'plan_task_npk2': 'दूसरी खुराक फूल आने की अवस्था में दी जानी चाहिए।',
     },
     'mr': {
-      // ... (all existing 'mr' translations) ...
+      // Home Screen
       'welcome_title': 'स्वागत आहे, राज कुमार',
       'home_active_plots': 'सक्रिय भूखंड',
       'home_crop_advisory': 'पीक सल्ला',
       'home_pest_detection': 'कीड ओळख',
       'home_market_prices': 'बाजार अंतर्दृष्टी',
       'home_community': 'समुदाय',
+
+      // Schemes Screen
       'schemes_title': 'सरकारी योजना',
       'schemes_subtitle': 'शेतकऱ्यांसाठी सरकारी लाभ आणि अनुदान मिळवा',
       'schemes_pm_kisan_title': 'पीएम-किसान',
@@ -319,6 +415,8 @@ class LocalizationService extends ChangeNotifier {
       'schemes_amount_upto': '₹2 लाख पर्यंत',
       'schemes_deadline': 'अंतिम मुदत',
       'schemes_helpline': 'हेल्पलाइन',
+
+      // Updates Screen
       'updates_title': 'आजची अद्यतने',
       'updates_tab_all': 'सर्व',
       'updates_tab_alerts': 'सूचना',
@@ -338,6 +436,8 @@ class LocalizationService extends ChangeNotifier {
       'priority_high': 'उच्च',
       'priority_medium': 'मध्यम',
       'priority_low': 'कमी',
+
+      // Diary Screen
       'diary_title': 'पीक डायरी',
       'diary_log_activity': 'आजच्या कामाची नोंद करा',
       'diary_voice_input': 'व्हॉइस इनपुट',
@@ -355,6 +455,8 @@ class LocalizationService extends ChangeNotifier {
       'diary_activity_applied_npk_desc':
       'शिफारशीनुसार प्रति एकर 50 किलो एनपीके (12:32:16) दिले.',
       'diary_activity_applied_npk_weather': 'ढगाळ, 26°C',
+
+      // Profile Screen
       'profile_title': 'प्रोफाइल',
       'profile_farm_info': 'शेतीची माहिती',
       'profile_farm_size': 'शेतीचा आकार',
@@ -376,6 +478,8 @@ class LocalizationService extends ChangeNotifier {
       'profile_primary_contact': 'प्राथमिक संपर्क क्रमांक',
       'profile_emergency_contacts': 'आणीबाणी संपर्क',
       'profile_sign_out': 'साइन आउट',
+
+      // Crop Advisory Flow
       'crop_advisory_title': 'पीक सल्ला',
       'crop_advisory_subtitle': 'वैयक्तिकृत शेती मार्गदर्शनासाठी आपले पीक निवडा',
       'crop_advisory_customize': 'पीक सानुकूलित करा',
@@ -397,10 +501,20 @@ class LocalizationService extends ChangeNotifier {
       'personalized_plan_step1_title': 'पायरी 1: जमिनीची तयारी',
       'personalized_plan_step2_title': 'पायरी 2: पेरणी आणि लागवड',
       'personalized_plan_step3_title': 'पायरी 3: खत व्यवस्थापन',
+      'crop_advisor_form_hint_area': 'उदा., 5.0',
+      'crop_advisor_form_hint_soil': 'उदा., चिकणमाती, वालुकामय',
+      'crop_advisor_form_hint_irrigation': 'सिंचन पद्धत निवडा',
+      'irrigation_drip': 'ठिबक सिंचन',
+      'irrigation_sprinkler': 'तुषार सिंचन',
+      'irrigation_canal': 'कालवा',
+
+      // Market Insights
       'market_prices_title': 'बाजार अंतर्दृष्टी',
       'market_prices_live': 'थेट',
       'market_prices_per_quintal': 'प्रति क्विंटल',
       'market_prices_vs_yesterday': 'कालच्या तुलनेत',
+
+      // Community Forum
       'community_title': 'शेतकरी समुदाय',
       'community_share_experience': 'तुमचा अनुभव सांगा',
       'community_share_experience_subtitle':
@@ -409,6 +523,14 @@ class LocalizationService extends ChangeNotifier {
       'community_tag_crops': 'पिके',
       'community_tag_tips': 'टिपा',
       'community_tag_govt': 'सरकारी योजना',
+      'community_post_1_text':
+      'माझ्या गव्हाच्या पिकाला पिवळी पाने येत आहेत. मी काय करावे?',
+      'community_post_2_text':
+      'मी कीड नियंत्रणासाठी कडुलिंबाचे तेल साबणाच्या पाण्यात मिसळून वापरतो. खूप प्रभावी आणि सेंद्रिय!',
+      'community_post_3_text':
+      'पीएम-किसानचा हप्ता आज मिळाला. खात्यात ₹2000 जमा झाले. तुमची स्थिती तपासा!',
+
+      // Pest Detection
       'pest_detection_title': 'कीड ओळख',
       'pest_detection_subtitle':
       'रोगांची ओळख आणि उपचार सल्ल्यासाठी तुमची रोपे स्कॅन करा',
@@ -425,20 +547,39 @@ class LocalizationService extends ChangeNotifier {
       'पार्श्वभूमी साधी आणि गोंधळविरहित ठेवा',
       'pest_detection_capture_button': 'फोटो काढा',
       'pest_detection_upload_button': 'प्रतिमा अपलोड करा',
-      'community_post_1_text':
-      'माझ्या गव्हाच्या पिकाला पिवळी पाने येत आहेत. मी काय करावे?',
-      'community_post_2_text':
-      'मी कीड नियंत्रणासाठी कडुलिंबाचे तेल साबणाच्या पाण्यात मिसळून वापरतो. खूप प्रभावी आणि सेंद्रिय!',
-      'community_post_3_text':
-      'पीएम-किसानचा हप्ता आज मिळाला. खात्यात ₹2000 जमा झाले. तुमची स्थिती तपासा!',
 
-      // ** NEW ** Crop Advisor Form additions
-      'crop_advisor_form_hint_area': 'उदा., 5.0',
-      'crop_advisor_form_hint_soil': 'उदा., चिकणमाती, वालुकामय',
-      'crop_advisor_form_hint_irrigation': 'सिंचन पद्धत निवडा',
-      'irrigation_drip': 'ठिबक सिंचन',
-      'irrigation_sprinkler': 'तुषार सिंचन',
-      'irrigation_canal': 'कालवा',
+      // New translations for crop advisory
+      'validation_land_area_required': 'कृपया जमीन क्षेत्र प्रविष्ट करा',
+      'validation_land_area_number': 'कृपया एक वैध संख्या प्रविष्ट करा',
+      'validation_land_area_positive': 'जमीन क्षेत्र 0 पेक्षा जास्त असणे आवश्यक आहे',
+      'validation_soil_type_required': 'कृपया मातीचा प्रकार प्रविष्ट करा',
+      'validation_soil_type_valid': 'कृपया एक वैध माती प्रकार प्रविष्ट करा',
+      'validation_irrigation_required': 'कृपया सिंचन पद्धत निवडा',
+      'recommendation_success': 'शिफारस यशस्वीरित्या तयार झाली!',
+      'reset_form_tooltip': 'फॉर्म रीसेट करा',
+      'reset_form_button': 'फॉर्म रीसेट करा',
+      'not_selected': 'निवडलेले नाही',
+      'acres_unit': 'एकर',
+      'form_summary': 'फॉर्म सारांश:',
+      'Step': 'पायरी',
+
+      // Crop recommendation texts
+      'recommendation_based_on': 'तुमच्या माहितीच्या आधारे',
+      'recommendation_land_area': 'एकर सह',
+      'recommendation_soil': 'माती आणि',
+      'recommendation_irrigation': 'सिंचन, शिफारस केलेले पीक आहे',
+      'recommendation_crop_loamy': 'गहू',
+      'recommendation_crop_sandy': 'भुईमूग',
+      'recommendation_crop_clay': 'भात',
+      'recommendation_crop_default': 'मका',
+
+      // Plan step tasks
+      'plan_task_plow': 'चांगली भुसभुशीत जमीन मिळवण्यासाठी शेताची २-३ वेळा नांगरणी करा.',
+      'plan_task_manure': 'प्रति एकर १०-१५ टन शेणखत टाका.',
+      'plan_task_seeds': 'उत्तम परिणामांसाठी प्रमाणित बियाणे वापरा.',
+      'plan_task_spacing': 'दोन ओळींमध्ये ३० सें.मी. अंतर ठेवा.',
+      'plan_task_npk1': '२५ दिवसांनी एनपीके खताचा पहिला डोस द्या.',
+      'plan_task_npk2': 'दुसरा डोस फुलोऱ्याच्या अवस्थेत द्यावा.',
     },
   };
 
@@ -455,4 +596,3 @@ class LocalizationService extends ChangeNotifier {
 
 // Global instance of the service
 final localizationService = LocalizationService();
-

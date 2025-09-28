@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:krishi_rath/common/widgets/bilingual_text.dart';
+import 'package:krishi_rath/services/localization_service.dart';
 
 class PersonalizedPlanScreen extends StatelessWidget {
-  const PersonalizedPlanScreen({super.key});
+  final String landArea;
+  final String soilType;
+  final String irrigationType;
+
+  const PersonalizedPlanScreen({
+    super.key,
+    required this.landArea,
+    required this.soilType,
+    required this.irrigationType,
+  });
+
+  // Get translation function
+  String _tr(String key) => localizationService.translate(key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // This AppBar will automatically use the green theme color
-        title: const BilingualText(
-          englishText: 'Your Personalized Plan',
-          hindiText: 'आपकी व्यक्तिगत योजना',
-        ),
+        title: Text(_tr('personalized_plan_title')),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -22,37 +31,34 @@ class PersonalizedPlanScreen extends StatelessWidget {
           _buildPlanStepCard(
             context,
             step: 1,
-            title: 'Land Preparation',
-            hindiTitle: 'भूमि की तैयारी',
+            title: _tr('personalized_plan_step1_title'),
             icon: Icons.landscape,
             color: Colors.brown,
             tasks: [
-              'Plow the field 2-3 times to get a fine tilth.',
-              'Apply 10-15 tons of farmyard manure per acre.',
+              _tr('plan_task_plow'),
+              _tr('plan_task_manure'),
             ],
           ),
           _buildPlanStepCard(
             context,
             step: 2,
-            title: 'Sowing & Planting',
-            hindiTitle: 'बुवाई और रोपण',
+            title: _tr('personalized_plan_step2_title'),
             icon: Icons.grass,
             color: Colors.green,
             tasks: [
-              'Use certified seeds for best results.',
-              'Maintain a row-to-row spacing of 30 cm.',
+              _tr('plan_task_seeds'),
+              _tr('plan_task_spacing'),
             ],
           ),
           _buildPlanStepCard(
             context,
             step: 3,
-            title: 'Fertilization Schedule',
-            hindiTitle: 'उर्वरक अनुसूची',
+            title: _tr('personalized_plan_step3_title'),
             icon: Icons.science_outlined,
             color: Colors.blue,
             tasks: [
-              'Apply first dose of NPK fertilizer after 25 days.',
-              'Second dose should be applied at the flowering stage.',
+              _tr('plan_task_npk1'),
+              _tr('plan_task_npk2'),
             ],
           ),
         ],
@@ -61,6 +67,8 @@ class PersonalizedPlanScreen extends StatelessWidget {
   }
 
   Widget _buildSummaryCard(BuildContext context) {
+    String recommendedCrop = _getRecommendedCrop(soilType);
+
     return Card(
       color: Theme.of(context).primaryColor.withOpacity(0.1),
       elevation: 0,
@@ -69,29 +77,36 @@ class PersonalizedPlanScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BilingualText(
-              englishText: 'Recommendation Summary',
-              hindiText: 'सिफारिश सारांश',
-              englishStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              _tr('personalized_plan_summary_title'),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Divider(height: 20),
             RichText(
               text: TextSpan(
                 style: Theme.of(context).textTheme.bodyLarge,
-                children: const [
-                  TextSpan(text: 'Based on your input of '),
+                children: [
+                  TextSpan(text: '${_tr('recommendation_based_on')} '),
                   TextSpan(
-                      text: 'Loamy Soil',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: ' and '),
+                    text: '$landArea ${_tr('acres_unit')}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: ' ${_tr('recommendation_land_area')} '),
                   TextSpan(
-                      text: 'Drip Irrigation',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: ', the recommended crop is '),
+                    text: soilType,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: ' ${_tr('recommendation_soil')} '),
                   TextSpan(
-                      text: 'Wheat',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: '.'),
+                    text: irrigationType.toLowerCase(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: ' ${_tr('recommendation_irrigation')} '),
+                  TextSpan(
+                    text: recommendedCrop,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const TextSpan(text: '.'),
                 ],
               ),
             )
@@ -101,11 +116,22 @@ class PersonalizedPlanScreen extends StatelessWidget {
     );
   }
 
+  String _getRecommendedCrop(String soilType) {
+    if (soilType.toLowerCase().contains('loamy') || soilType.toLowerCase().contains('दोमट') || soilType.toLowerCase().contains('चिकणमाती')) {
+      return _tr('recommendation_crop_loamy');
+    } else if (soilType.toLowerCase().contains('sandy') || soilType.toLowerCase().contains('रेतीली') || soilType.toLowerCase().contains('वालुकामय')) {
+      return _tr('recommendation_crop_sandy');
+    } else if (soilType.toLowerCase().contains('clay') || soilType.toLowerCase().contains('चिकनी') || soilType.toLowerCase().contains('चिकण')) {
+      return _tr('recommendation_crop_clay');
+    } else {
+      return _tr('recommendation_crop_default');
+    }
+  }
+
   Widget _buildPlanStepCard(
       BuildContext context, {
         required int step,
         required String title,
-        required String hindiTitle,
         required IconData icon,
         required Color color,
         required List<String> tasks,
@@ -128,12 +154,13 @@ class PersonalizedPlanScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Step $step',
-                        style: TextStyle(color: Colors.grey.shade600)),
-                    BilingualText(
-                      englishText: title,
-                      hindiText: hindiTitle,
-                      englishStyle: const TextStyle(
+                    Text(
+                      '${_tr('Step')} $step',
+                      style: TextStyle(color: Colors.grey.shade600),
+                    ),
+                    Text(
+                      title,
+                      style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -159,4 +186,3 @@ class PersonalizedPlanScreen extends StatelessWidget {
     );
   }
 }
-
