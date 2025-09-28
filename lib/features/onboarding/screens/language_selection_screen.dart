@@ -26,16 +26,37 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   String? _currentlySpeaking;
 
   final List<LanguageOption> languages = [
-    LanguageOption('Hindi', 'हिन्दी', 'hi-IN', 'hi'),
+    LanguageOption('Assamese', 'অসমীয়া', 'as-IN', 'as'),
+    LanguageOption('Bengali', 'বাংলা', 'bn-IN', 'bn'),
+    LanguageOption('Bodo', 'बड़ो', 'brx-IN', 'brx'),
+    LanguageOption('Dogri', 'डोगरी', 'doi-IN', 'doi'),
     LanguageOption('English', 'English', 'en-US', 'en'),
+    LanguageOption('Gujarati', 'ગુજરાતી', 'gu-IN', 'gu'),
+    LanguageOption('Hindi', 'हिन्दी', 'hi-IN', 'hi'),
+    LanguageOption('Kannada', 'ಕನ್ನಡ', 'kn-IN', 'kn'),
+    LanguageOption('Kashmiri', 'कॉशुर', 'ks-IN', 'ks'),
+    LanguageOption('Konkani', 'कोंकणी', 'kok-IN', 'kok'),
+    LanguageOption('Maithili', 'मैथिली', 'mai-IN', 'mai'),
+    LanguageOption('Malayalam', 'മലയാളം', 'ml-IN', 'ml'),
+    LanguageOption('Manipuri', 'মৈতৈলোন্', 'mni-IN', 'mni'),
     LanguageOption('Marathi', 'मराठी', 'mr-IN', 'mr'),
-    // Add other languages here if needed
+    LanguageOption('Nepali', 'नेपाली', 'ne-IN', 'ne'),
+    LanguageOption('Oriya', 'ଓଡ଼ିଆ', 'or-IN', 'or'),
+    LanguageOption('Punjabi', 'ਪੰਜਾਬੀ', 'pa-IN', 'pa'),
+    LanguageOption('Sanskrit', 'संस्कृतम्', 'sa-IN', 'sa'),
+    LanguageOption('Santali', 'ᱥᱟᱱᱛᱟᱲᱤ', 'sat-IN', 'sat'),
+    LanguageOption('Sindhi', 'सिन्धी', 'sd-IN', 'sd'),
+    LanguageOption('Tamil', 'தமிழ்', 'ta-IN', 'ta'),
+    LanguageOption('Telugu', 'తెలుగు', 'te-IN', 'te'),
+    LanguageOption('Urdu', 'اُردُو', 'ur-IN', 'ur'),
   ];
 
   @override
   void initState() {
     super.initState();
     flutterTts = FlutterTts();
+
+    // Set up TTS completion handler
     flutterTts.setCompletionHandler(() {
       if (mounted) {
         setState(() {
@@ -44,20 +65,33 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         _navigateToDashboard();
       }
     });
+
+    // Set speech rate for better pronunciation
+    flutterTts.setSpeechRate(0.4);
+    flutterTts.setPitch(1.0);
   }
 
   // Function to speak the selected language name AND set the app's language
   Future<void> _speak(LanguageOption language) async {
-    // --- THIS IS THE FIX ---
-    // This line tells the entire app to change its language.
+    // Stop any currently playing speech
+    await flutterTts.stop();
+
+    // Set the app's language
     localizationService.setLocale(Locale(language.localeCode));
-    // -----------------------
 
     setState(() {
       _currentlySpeaking = language.languageCode;
     });
-    await flutterTts.setLanguage(language.languageCode);
-    await flutterTts.speak(language.nativeName);
+
+    try {
+      await flutterTts.setLanguage(language.languageCode);
+      await flutterTts.speak(language.nativeName);
+    } catch (e) {
+      // Fallback to English if language is not supported by TTS
+      print('TTS error for ${language.englishName}: $e');
+      await flutterTts.setLanguage('en-US');
+      await flutterTts.speak(language.englishName);
+    }
   }
 
   void _navigateToDashboard() {
@@ -83,21 +117,21 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       backgroundColor: Colors.lightGreen[50],
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(16.0), // Reduced padding for more space
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               _buildHeader(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               _buildInfoBox(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 2.2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 2.0, // Slightly smaller aspect ratio
                   ),
                   itemCount: languages.length,
                   itemBuilder: (context, index) {
@@ -116,19 +150,20 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
     return const Column(
       children: [
         CircleAvatar(
-          radius: 40,
+          radius: 35, // Slightly smaller
           backgroundColor: Colors.green,
-          child: Icon(Icons.agriculture, color: Colors.white, size: 40),
+          child: Icon(Icons.agriculture, color: Colors.white, size: 35),
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 12),
         Text(
           'Krishi Rath',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 6),
         Text(
           'Choose your language / अपनी भाषा चुनें',
-          style: TextStyle(fontSize: 16, color: Colors.black54),
+          style: TextStyle(fontSize: 14, color: Colors.black54),
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -136,17 +171,23 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
 
   Widget _buildInfoBox() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.blue[50],
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.volume_up, color: Colors.blue),
-          SizedBox(width: 8),
-          Text('Tap any language button to hear it spoken'),
+          Icon(Icons.volume_up, color: Colors.blue, size: 18),
+          SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              'Tap any language to hear it spoken',
+              style: TextStyle(fontSize: 13),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
@@ -158,23 +199,45 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       elevation: 2,
       color: isSpeaking ? Colors.green[100] : Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(10),
         side: BorderSide(
-          color: isSpeaking ? Colors.green : Colors.transparent,
-          width: 2,
+          color: isSpeaking ? Colors.green : Colors.grey[300]!,
+          width: 1,
         ),
       ),
       child: InkWell(
         onTap: () => _speak(lang),
-        borderRadius: BorderRadius.circular(12),
-        child: Center(
-          child: Text(
-            lang.nativeName,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+        borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                lang.nativeName,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 2),
+              Text(
+                lang.englishName,
+                style: const TextStyle(
+                  fontSize: 10,
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 }
-
